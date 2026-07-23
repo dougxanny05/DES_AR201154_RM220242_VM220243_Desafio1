@@ -1,0 +1,19 @@
+@model DES_AR201154_RM220242_VM220243_Desafio1.Models.Departamento
+
+@{
+    ViewData["Title"] = "Eliminar Departamento";
+}
+
+<h1>Eliminar Departamento</h1>
+
+<h3>¿Está seguro que desea eliminar este departamento?</h3>
+<div>
+    <h4>@Model.Nombre</h4>
+    <p>@Model.Descripcion</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ID" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" href="/Departamentos">Cancelar</a>
+</form>

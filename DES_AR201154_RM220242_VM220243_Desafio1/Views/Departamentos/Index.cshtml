@@ -1,0 +1,35 @@
+@model IEnumerable<DES_AR201154_RM220242_VM220243_Desafio1.Models.Departamento>
+
+@{
+    ViewData["Title"] = "Departamentos";
+}
+
+<h1>Departamentos</h1>
+
+<p>
+    <a class="btn btn-primary" href="/Departamentos/Create">Crear nuevo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Descripcion</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="/Departamentos/Details/@item.ID">Detalles</a>
+                <a class="btn btn-sm btn-warning" href="/Departamentos/Edit/@item.ID">Editar</a>
+                <a class="btn btn-sm btn-danger" href="/Departamentos/Delete/@item.ID">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

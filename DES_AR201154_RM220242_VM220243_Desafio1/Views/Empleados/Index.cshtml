@@ -1,0 +1,41 @@
+@model IEnumerable<DES_AR201154_RM220242_VM220243_Desafio1.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+<h1>Empleados</h1>
+
+<p>
+    <a class="btn btn-primary" href="/Empleados/Create">Crear nuevo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Departamento</th>
+            <th>Fecha Nacimiento</th>
+            <th>Fecha Contratación</th>
+            <th>Salario</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Departamento?.Nombre</td>
+            <td>@item.FechaNacimiento.ToString("yyyy-MM-dd")</td>
+            <td>@item.FechaContratacion.ToString("yyyy-MM-dd")</td>
+            <td>@item.Salario.ToString("C")</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="/Empleados/Details/@item.ID">Detalles</a>
+                <a class="btn btn-sm btn-warning" href="/Empleados/Edit/@item.ID">Editar</a>
+                <a class="btn btn-sm btn-danger" href="/Empleados/Delete/@item.ID">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+@model DES_AR201154_RM220242_VM220243_Desafio1.Models.Departamento
+
+@{
+    ViewData["Title"] = "Detalles Departamento";
+}
+
+<h1>Detalles</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Nombre</dt>
+    <dd class="col-sm-10">@Model.Nombre</dd>
+
+    <dt class="col-sm-2">Descripción</dt>
+    <dd class="col-sm-10">@Model.Descripcion</dd>
+</dl>
+
+<h4>Empleados</h4>
+<ul>
+@foreach(var e in Model.Empleado)
+{
+    <li>@e.Nombre (@e.Salario.ToString("C"))</li>
+}
+</ul>
+
+<a class="btn btn-secondary" href="/Departamentos">Volver</a>
