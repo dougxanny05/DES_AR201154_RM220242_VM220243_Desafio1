@@ -13,9 +13,19 @@ namespace DES_AR201154_RM220242_VM220243_Desafio1.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? selectedId)
         {
             var lista = await _context.Departamentos.ToListAsync();
+
+            if (selectedId.HasValue)
+            {
+                var seleccionado = await _context.Departamentos
+                    .Include(d => d.Empleado)
+                    .FirstOrDefaultAsync(d => d.ID == selectedId.Value);
+
+                ViewData["SelectedDepartamento"] = seleccionado;
+            }
+
             return View(lista);
         }
 

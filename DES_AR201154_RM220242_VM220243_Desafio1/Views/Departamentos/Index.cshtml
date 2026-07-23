@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Departamentos";
+    var seleccionado = ViewData["SelectedDepartamento"] as DES_AR201154_RM220242_VM220243_Desafio1.Models.Departamento;
 }
 
 <h1>Departamentos</h1>
@@ -10,26 +11,48 @@
     <a class="btn btn-primary" href="/Departamentos/Create">Crear nuevo</a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Nombre</td>
-            <td>@item.Descripcion</td>
-            <td>
-                <a class="btn btn-sm btn-info" href="/Departamentos/Details/@item.ID">Detalles</a>
-                <a class="btn btn-sm btn-warning" href="/Departamentos/Edit/@item.ID">Editar</a>
-                <a class="btn btn-sm btn-danger" href="/Departamentos/Delete/@item.ID">Eliminar</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="form-group">
+        <label for="selectedId">Seleccione un departamento</label>
+        <select id="selectedId" name="selectedId" class="form-control" onchange="this.form.submit()">
+            <option value="">-- Ninguno --</option>
+            @foreach (var d in Model)
+            {
+                <option value="@d.ID" selected="@(seleccionado != null && seleccionado.ID == d.ID ? "selected" : "")">@d.Nombre</option>
+            }
+        </select>
+    </div>
+</form>
+
+@if (seleccionado != null)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">@seleccionado.Nombre</h4>
+            <p class="card-text">@seleccionado.Descripcion</p>
+
+            <p>
+                <a class="btn btn-sm btn-info" href="/Departamentos/Details/@seleccionado.ID">Detalles</a>
+                <a class="btn btn-sm btn-warning" href="/Departamentos/Edit/@seleccionado.ID">Editar</a>
+                <a class="btn btn-sm btn-danger" href="/Departamentos/Delete/@seleccionado.ID">Eliminar</a>
+            </p>
+
+            <h5>Empleados</h5>
+            @if (seleccionado.Empleado != null && seleccionado.Empleado.Any())
+            {
+                <ul>
+                @foreach (var e in seleccionado.Empleado)
+                {
+                    <li>@e.Nombre (@e.Salario.ToString("C"))</li>
+                }
+                </ul>
+            }
+            else
+            {
+                <p>No hay empleados en este departamento.</p>
+            }
+        </div>
+    </div>
+}
+
+<!-- Lista completa eliminada según solicitud -->
