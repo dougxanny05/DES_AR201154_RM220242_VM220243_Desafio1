@@ -55,7 +55,9 @@ namespace DES_AR201154_RM220242_VM220243_Desafio1.Controllers
             {
                 _context.Add(departamento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // After creating, redirect to Index and pass the new departamento ID
+                // so the newly created department is selected and its details shown.
+                return RedirectToAction(nameof(Index), new { selectedId = departamento.ID });
             }
 
             return View(departamento);
